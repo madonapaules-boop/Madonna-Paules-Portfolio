@@ -11,3 +11,5 @@
 - [x] Verify desktop and mobile layouts visually and verify light/dark mode switching.
 - [x] Remove any interface copy or links beyond the supplied portfolio specification.
 - [x] Add rendered UI interaction tests for theme switching and section navigation.
+- [x] Redesign the portfolio into the reference-inspired sidebar and hero composition while retaining Madonna's pink light/dark palettes and content.
+- [x] Correct the phone link formatting in the redesigned profile rail.
