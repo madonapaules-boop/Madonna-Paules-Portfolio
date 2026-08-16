@@ -13,3 +13,11 @@
 - [x] Add rendered UI interaction tests for theme switching and section navigation.
 - [x] Redesign the portfolio into the reference-inspired sidebar and hero composition while retaining Madonna's pink light/dark palettes and content.
 - [x] Correct the phone link formatting in the redesigned profile rail.
+- [x] Add a database-backed portfolio content model for profile, skills, projects, education, certifications, and languages.
+- [x] Implement secure owner-only login using the specified email and a server-side password secret.
+- [x] Build a protected owner dashboard to edit all portfolio content and contact links.
+- [x] Convert the public site into one active section at a time: About, Skills, Work, Credentials, and Contact.
+- [x] Add a profile-rail section navigator, including a footer Owner dashboard link and contact links for LinkedIn, GitHub, email, and phone.
+- [x] Test public data loading, protected dashboard access, content updates, and section navigation.
+- [x] Keep LinkedIn and GitHub as clickable placeholders until their owner URLs are entered in the dashboard.
+- [x] Add an end-to-end backend test that saves content through an owner session and verifies the public data route returns it.

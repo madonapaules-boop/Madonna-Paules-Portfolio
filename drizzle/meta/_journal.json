@@ -8,6 +8,13 @@
       "when": 1786837652440,
       "tag": "0000_cool_mantis",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1786841691652,
+      "tag": "0001_normal_tigra",
+      "breakpoints": true
     }
   ]
 }

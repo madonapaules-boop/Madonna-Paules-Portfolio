@@ -6,6 +6,16 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import Home from "./Home";
 
+vi.mock("@/lib/trpc", () => ({
+  trpc: {
+    portfolio: {
+      publicData: {
+        useQuery: () => ({ data: undefined, isLoading: false }),
+      },
+    },
+  },
+}));
+
 class IntersectionObserverMock {
   observe = vi.fn();
   disconnect = vi.fn();
@@ -47,17 +57,14 @@ describe("portfolio interactions", () => {
     expect(screen.getByRole("button", { name: "Switch to light mode" })).toBeTruthy();
   });
 
-  it("smoothly navigates to a portfolio section and marks its navigation item active", () => {
+  it("shows one selected portfolio section and marks its navigation item active", () => {
     renderPortfolio();
-    const skillsButton = screen.getByRole("button", { name: "Skills" });
-    const skillsSection = document.getElementById("skills");
+    const skillsButton = screen.getAllByRole("button", { name: "Skills" })[0];
 
     fireEvent.click(skillsButton);
 
-    expect(skillsSection?.scrollIntoView).toHaveBeenCalledWith({
-      behavior: "smooth",
-      block: "start",
-    });
     expect(skillsButton.classList.contains("active")).toBe(true);
+    expect(screen.getByText("Languages")).toBeTruthy();
+    expect(screen.queryByText("Dona Store")).toBeNull();
   });
 });

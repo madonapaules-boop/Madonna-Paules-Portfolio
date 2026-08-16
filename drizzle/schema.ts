@@ -22,6 +22,17 @@ export const users = mysqlTable("users", {
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
 });
 
+export const portfolioContent = mysqlTable("portfolio_content", {
+  id: int("id").primaryKey(),
+  profileJson: text("profileJson").notNull(),
+  skillsJson: text("skillsJson").notNull(),
+  projectsJson: text("projectsJson").notNull(),
+  educationJson: text("educationJson").notNull(),
+  certificationsJson: text("certificationsJson").notNull(),
+  languagesJson: text("languagesJson").notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
