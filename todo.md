@@ -21,3 +21,14 @@
 - [x] Test public data loading, protected dashboard access, content updates, and section navigation.
 - [x] Keep LinkedIn and GitHub as clickable placeholders until their owner URLs are entered in the dashboard.
 - [x] Add an end-to-end backend test that saves content through an owner session and verifies the public data route returns it.
+- [x] Add bilingual Arabic/English profile fields and public language selection.
+- [x] Add S3-backed owner uploads for profile image and PDF CV, with safe file validation.
+- [x] Add separate dashboard routes for Overview, Profile, Projects, Certificates, and Messages.
+- [x] Add an owner overview with portfolio counters and shortcuts to edit profile and projects.
+- [x] Add a public contact form plus an owner messages inbox with read-state controls.
+- [x] Replace raw JSON editing with structured project and certificate management forms.
+- [x] Test bilingual content, uploads, protected routes, messages, and responsive dashboard layouts.
+- [x] Add bilingual training and Instagram profile fields matching the reference dashboard profile form.
+- [x] Verify responsive layouts for the expanded owner dashboard routes.
+- [x] Add test coverage for public message submission and inbox read-state behavior without seeding persistent data.
+- [x] Document the required owner-provided photo and CV assets for the final live upload check.

@@ -12,6 +12,9 @@ vi.mock("@/lib/trpc", () => ({
       publicData: {
         useQuery: () => ({ data: undefined, isLoading: false }),
       },
+      sendMessage: {
+        useMutation: () => ({ mutate: vi.fn(), isPending: false, isSuccess: false, isError: false }),
+      },
     },
   },
 }));

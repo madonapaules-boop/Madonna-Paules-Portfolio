@@ -7,6 +7,10 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Admin from "./pages/Admin";
 import AdminLogin from "./pages/AdminLogin";
+import AdminProfile from "./pages/AdminProfile";
+import AdminProjects from "./pages/AdminProjects";
+import AdminCertificates from "./pages/AdminCertificates";
+import AdminMessages from "./pages/AdminMessages";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -14,6 +18,10 @@ function Router() {
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/admin/login"} component={AdminLogin} />
+      <Route path={"/admin/profile"} component={AdminProfile} />
+      <Route path={"/admin/projects"} component={AdminProjects} />
+      <Route path={"/admin/certificates"} component={AdminCertificates} />
+      <Route path={"/admin/messages"} component={AdminMessages} />
       <Route path={"/admin"} component={Admin} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}

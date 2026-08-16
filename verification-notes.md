@@ -13,3 +13,11 @@ The public section navigator was verified in the browser. Selecting Skills repla
 The owner dashboard was opened again with its authenticated session and its Save changes action completed successfully, displaying the saved confirmation. This verified the complete authenticated write path from dashboard to the `portfolio_content` database record.
 
 Automated tests now also create an owner session, submit a temporary content edit, verify it is returned through the public portfolio data route, and restore the original content. The final test run passed all 12 tests.
+
+The expanded owner workspace was reviewed in the browser. The Profile page exposed English and Arabic profile fields, secure image and CV upload controls, and public contact links. The Projects page exposed separate English and Arabic fields for each project, stack editing, and add/remove controls.
+
+The Messages route was reviewed and showed the empty inbox state. The public site review confirmed clickable email, phone, LinkedIn, and GitHub placeholders, language switching control, and the existing one-section-at-a-time composition.
+
+The public language toggle was verified in the browser: the profile, headings, education, and navigation switched to Arabic with right-to-left layout. The Arabic Contact section exposed the email and phone links plus the public message form, while keeping all other portfolio sections hidden.
+
+The Overview page was reviewed with live counters for projects, certificates, and unread messages plus direct editing shortcuts. The Credentials page was reviewed with structured bilingual forms for education, skills, certificates, and languages, including add and remove controls.

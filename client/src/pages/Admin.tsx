@@ -1,37 +1,15 @@
+import { OwnerDashboardLayout } from "@/components/OwnerDashboardLayout";
 import { trpc } from "@/lib/trpc";
-import { defaultPortfolioContent, type PortfolioContent } from "@shared/portfolioContent";
-import { CheckCircle2, ExternalLink, LogOut, Save, Settings2 } from "lucide-react";
-import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "wouter";
-
-type Tab = "profile" | "skills" | "projects" | "education" | "credentials";
-const tabs: { id: Tab; label: string }[] = [{ id: "profile", label: "Profile & links" }, { id: "skills", label: "Skills" }, { id: "projects", label: "Projects" }, { id: "education", label: "Education" }, { id: "credentials", label: "Credentials" }];
-
-function stringify(value: unknown) { return JSON.stringify(value, null, 2); }
-function parse<T>(value: string): T { return JSON.parse(value) as T; }
+import { ArrowUpRight, FileBadge, FolderKanban, Mail, UserRound } from "lucide-react";
+import React from "react";
+import { Link } from "wouter";
 
 export default function Admin() {
-  const [, setLocation] = useLocation();
-  const session = trpc.owner.session.useQuery();
-  const contentQuery = trpc.portfolio.adminData.useQuery(undefined, { enabled: session.data?.authenticated === true });
-  const utils = trpc.useUtils();
-  const [tab, setTab] = useState<Tab>("profile");
-  const [draft, setDraft] = useState<PortfolioContent>(defaultPortfolioContent);
-  const [json, setJson] = useState({ skills: stringify(defaultPortfolioContent.skills), projects: stringify(defaultPortfolioContent.projects), certifications: stringify(defaultPortfolioContent.certifications), languages: stringify(defaultPortfolioContent.languages) });
-  const [error, setError] = useState("");
-
-  useEffect(() => { if (session.data && !session.data.authenticated) setLocation("/admin/login"); }, [session.data, setLocation]);
-  useEffect(() => { if (contentQuery.data) { setDraft(contentQuery.data); setJson({ skills: stringify(contentQuery.data.skills), projects: stringify(contentQuery.data.projects), certifications: stringify(contentQuery.data.certifications), languages: stringify(contentQuery.data.languages) }); } }, [contentQuery.data]);
-  const save = trpc.portfolio.save.useMutation({ onSuccess: async () => { setError(""); await Promise.all([utils.portfolio.adminData.invalidate(), utils.portfolio.publicData.invalidate()]); }, onError: () => setError("Could not save the content. Check the JSON fields and try again.") });
-  const logout = trpc.owner.logout.useMutation({ onSuccess: () => setLocation("/admin/login") });
-  const updateProfile = (field: keyof PortfolioContent["profile"], value: string) => setDraft(current => ({ ...current, profile: { ...current.profile, [field]: value } }));
-  const updateEducation = (field: keyof PortfolioContent["education"], value: string) => setDraft(current => ({ ...current, education: { ...current.education, [field]: value } }));
-  const submit = () => { try { const payload = { ...draft, skills: parse<PortfolioContent["skills"]>(json.skills), projects: parse<PortfolioContent["projects"]>(json.projects), certifications: parse<PortfolioContent["certifications"]>(json.certifications), languages: parse<string[]>(json.languages) }; setDraft(payload); setError(""); save.mutate(payload); } catch { setError("One of the JSON fields is not valid. Please correct its format before saving."); } };
-
-  if (session.isLoading || !session.data?.authenticated || contentQuery.isLoading) return <main className="admin-loading">Loading dashboard…</main>;
-  return <main className="admin-page"><header className="admin-topbar"><Link href="/" className="brand"><span className="brand-mark">M</span><span>Madonna Paules Bishay</span></Link><div><Link href="/" target="_blank">View portfolio <ExternalLink size={14} /></Link><button onClick={() => logout.mutate()}><LogOut size={15} />Sign out</button></div></header><div className="admin-layout"><aside className="admin-sidebar"><div><p className="admin-kicker">Owner dashboard</p><h1>Manage content</h1></div><nav>{tabs.map(item => <button type="button" className={tab === item.id ? "active" : ""} key={item.id} onClick={() => setTab(item.id)}>{item.label}</button>)}</nav><button className="save-side" type="button" onClick={submit} disabled={save.isPending}><Save size={16} />{save.isPending ? "Saving…" : "Save changes"}</button></aside><section className="admin-workspace"><div className="workspace-heading"><div><p className="admin-kicker"><Settings2 size={14} />Content editor</p><h2>{tabs.find(item => item.id === tab)?.label}</h2></div>{save.isSuccess && <span className="saved"><CheckCircle2 size={16} />Saved</span>}</div>{error && <p className="dashboard-error">{error}</p>}{tab === "profile" && <ProfileEditor profile={draft.profile} onChange={updateProfile} />}{tab === "skills" && <JsonEditor label="Skills" value={json.skills} onChange={value => setJson(current => ({ ...current, skills: value }))} help='Format: [{ "category": "Languages", "items": ["C#"] }]' />}{tab === "projects" && <JsonEditor label="Projects" value={json.projects} onChange={value => setJson(current => ({ ...current, projects: value }))} help='Format: [{ "name": "Project", "year": "2026", "stack": ["React"], "description": "..." }]' />}{tab === "education" && <EducationEditor education={draft.education} onChange={updateEducation} />}{tab === "credentials" && <div className="editor-stack"><JsonEditor label="Certifications" value={json.certifications} onChange={value => setJson(current => ({ ...current, certifications: value }))} help='Format: [{ "title": "Certification", "issuer": "Issuer" }]' /><JsonEditor label="Languages" value={json.languages} onChange={value => setJson(current => ({ ...current, languages: value }))} help='Format: ["Arabic (Native)"]' /></div>}<button className="save-mobile" type="button" onClick={submit} disabled={save.isPending}><Save size={16} />{save.isPending ? "Saving…" : "Save changes"}</button></section></div></main>;
+  const overview = trpc.portfolio.admin.overview.useQuery();
+  const cards = [
+    { label: "Projects", value: overview.data?.projectCount ?? 0, icon: FolderKanban, href: "/admin/projects" },
+    { label: "Certificates", value: overview.data?.certificateCount ?? 0, icon: FileBadge, href: "/admin/certificates" },
+    { label: "Unread messages", value: overview.data?.unreadCount ?? 0, icon: Mail, href: "/admin/messages" },
+  ];
+  return <OwnerDashboardLayout><div className="owner-page"><p className="admin-kicker">Control room</p><div className="owner-page-heading"><div><h1>Portfolio at a glance.</h1><p>Manage what visitors see, review incoming messages, and keep your work current.</p></div><Link href="/" target="_blank">View public site <ArrowUpRight size={15} /></Link></div><div className="overview-cards">{cards.map(card => { const Icon = card.icon; return <Link href={card.href} key={card.label}><div><p>{card.label}</p><strong>{card.value}</strong></div><Icon size={24} /><ArrowUpRight size={17} /></Link>; })}</div><section className="dashboard-next-step"><div><p className="admin-kicker">Next step</p><h2>Keep the public site current.</h2><p>Every change in the profile, projects, credentials, and languages is stored in your portfolio database.</p></div><div><Link href="/admin/profile"><UserRound size={16} />Edit profile</Link><Link href="/admin/projects"><FolderKanban size={16} />Add a project</Link></div></section></div></OwnerDashboardLayout>;
 }
-
-function ProfileEditor({ profile, onChange }: { profile: PortfolioContent["profile"]; onChange: (field: keyof PortfolioContent["profile"], value: string) => void }) { const fields: { field: keyof PortfolioContent["profile"]; label: string; type?: string }[] = [{ field: "name", label: "Full name" }, { field: "title", label: "Title" }, { field: "email", label: "Email", type: "email" }, { field: "phone", label: "Phone" }, { field: "location", label: "Location" }, { field: "linkedinUrl", label: "LinkedIn URL", type: "url" }, { field: "githubUrl", label: "GitHub URL", type: "url" }]; return <div className="editor-stack"><div className="field-grid">{fields.map(item => <label key={item.field}><span>{item.label}</span><input type={item.type ?? "text"} value={profile[item.field]} onChange={event => onChange(item.field, event.target.value)} /></label>)}</div><label><span>Professional summary</span><textarea rows={10} value={profile.bio} onChange={event => onChange("bio", event.target.value)} /></label></div>; }
-function EducationEditor({ education, onChange }: { education: PortfolioContent["education"]; onChange: (field: keyof PortfolioContent["education"], value: string) => void }) { return <div className="editor-stack"><div className="field-grid">{(["degree", "university", "period"] as const).map(field => <label key={field}><span>{field}</span><input value={education[field]} onChange={event => onChange(field, event.target.value)} /></label>)}</div><label><span>Relevant coursework</span><textarea rows={8} value={education.coursework} onChange={event => onChange("coursework", event.target.value)} /></label></div>; }
-function JsonEditor({ label, value, onChange, help }: { label: string; value: string; onChange: (value: string) => void; help: string }) { return <label className="json-editor"><span>{label}</span><small>{help}</small><textarea rows={18} value={value} spellCheck={false} onChange={event => onChange(event.target.value)} /></label>; }

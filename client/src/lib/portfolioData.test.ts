@@ -26,12 +26,12 @@ describe("portfolio content", () => {
   });
 
   it("keeps certifications and language proficiency labels", () => {
-    expect(portfolio.certifications).toEqual([
+    expect(portfolio.certifications.map(({ title, issuer }) => ({ title, issuer }))).toEqual([
       { title: "Full-Stack Web Development", issuer: "Satr" },
       { title: "CCNA 1 & 2", issuer: "Cisco" },
       { title: "Device Configuration & Management", issuer: "IT Specialist" },
     ]);
-    expect(portfolio.languages).toEqual([
+    expect(portfolio.languages.map(language => language.label)).toEqual([
       "Arabic (Native)",
       "English (Intermediate B1)",
     ]);

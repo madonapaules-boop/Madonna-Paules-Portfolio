@@ -1,4 +1,4 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { boolean, int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
@@ -31,6 +31,16 @@ export const portfolioContent = mysqlTable("portfolio_content", {
   certificationsJson: text("certificationsJson").notNull(),
   languagesJson: text("languagesJson").notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export const contactMessages = mysqlTable("contact_messages", {
+  id: int("id").autoincrement().primaryKey(),
+  senderName: varchar("senderName", { length: 140 }).notNull(),
+  senderEmail: varchar("senderEmail", { length: 320 }).notNull(),
+  subject: varchar("subject", { length: 220 }).notNull(),
+  body: text("body").notNull(),
+  isRead: boolean("isRead").default(false).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
 export type User = typeof users.$inferSelect;

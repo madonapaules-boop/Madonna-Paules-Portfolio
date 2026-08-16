@@ -15,6 +15,13 @@
       "when": 1786841691652,
       "tag": "0001_normal_tigra",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1786845293525,
+      "tag": "0002_great_omega_flight",
+      "breakpoints": true
     }
   ]
 }
