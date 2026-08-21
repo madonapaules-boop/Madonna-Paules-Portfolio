@@ -32,3 +32,6 @@
 - [x] Verify responsive layouts for the expanded owner dashboard routes.
 - [x] Add test coverage for public message submission and inbox read-state behavior without seeding persistent data.
 - [x] Document the required owner-provided photo and CV assets for the final live upload check.
+- [x] Fix mobile layout so the profile image card and identity/contact information remain visible above the portfolio content.
+- [x] Perform an independent visual verification of the repaired mobile profile summary at 390 px width.
+- [x] Add a regression test asserting the mobile CSS renders the profile rail instead of hiding it.

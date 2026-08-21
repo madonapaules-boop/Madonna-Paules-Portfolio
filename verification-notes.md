@@ -21,3 +21,7 @@ The Messages route was reviewed and showed the empty inbox state. The public sit
 The public language toggle was verified in the browser: the profile, headings, education, and navigation switched to Arabic with right-to-left layout. The Arabic Contact section exposed the email and phone links plus the public message form, while keeping all other portfolio sections hidden.
 
 The Overview page was reviewed with live counters for projects, certificates, and unread messages plus direct editing shortcuts. The Credentials page was reviewed with structured bilingual forms for education, skills, certificates, and languages, including add and remove controls.
+
+The mobile public page was reviewed at 390 px width after the responsive repair. The profile image, name, role, email, phone, and social links now render in a compact profile panel above the top navigation and portfolio content.
+
+An independent 390 px visual review confirmed that the photo and complete identity/contact summary remain visible and readable before the hero content in the repaired mobile layout.
