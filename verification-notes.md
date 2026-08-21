@@ -25,3 +25,9 @@ The Overview page was reviewed with live counters for projects, certificates, an
 The mobile public page was reviewed at 390 px width after the responsive repair. The profile image, name, role, email, phone, and social links now render in a compact profile panel above the top navigation and portfolio content.
 
 An independent 390 px visual review confirmed that the photo and complete identity/contact summary remain visible and readable before the hero content in the repaired mobile layout.
+
+The published site was reloaded with a cache-busting query parameter. Its HTML contains the profile rail and uploaded image, while the initially loaded production stylesheet did not yet expose the newest explicit mobile fallback rule, indicating a deployment propagation or asset-cache delay rather than missing profile content.
+
+After deployment propagation, the production stylesheet was reloaded and inspected directly. It contains the `@media (max-width:760px)` rule that renders `.portfolio .identity-rail` as a grid with `!important`, along with the compact image and contact-panel rules. This confirms the published asset now carries the mobile profile-summary repair.
+
+The live production domain was captured directly using a 390×844 browser viewport. The image card, name, role, email, phone, LinkedIn, GitHub, and Instagram summary visibly render above the navigation and hero content.

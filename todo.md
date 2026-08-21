@@ -35,4 +35,4 @@
 - [x] Fix mobile layout so the profile image card and identity/contact information remain visible above the portfolio content.
 - [x] Perform an independent visual verification of the repaired mobile profile summary at 390 px width.
 - [x] Add a regression test asserting the mobile CSS renders the profile rail instead of hiding it.
-- [ ] Verify the published mobile site reflects the profile-summary fix and resolve any deployment or caching mismatch.
+- [x] Verify the published mobile site reflects the profile-summary fix and resolve any deployment or caching mismatch.
