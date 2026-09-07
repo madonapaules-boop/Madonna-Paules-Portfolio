@@ -36,3 +36,6 @@
 - [x] Perform an independent visual verification of the repaired mobile profile summary at 390 px width.
 - [x] Add a regression test asserting the mobile CSS renders the profile rail instead of hiding it.
 - [x] Verify the published mobile site reflects the profile-summary fix and resolve any deployment or caching mismatch.
+- [x] Increase the small and light portfolio text slightly for better readability while preserving responsive layout.
+- [x] Record explicit mobile and desktop visual verification after the typography adjustment.
+- [x] Add regression coverage for the key readable typography sizes and responsive overrides.

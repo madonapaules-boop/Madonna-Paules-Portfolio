@@ -11,3 +11,13 @@ describe("mobile profile rail styles", () => {
     expect(css).not.toContain(".identity-rail { display: none; }");
   });
 });
+
+describe("portfolio readable typography", () => {
+  it("keeps secondary copy above the previous tiny sizes and enlarges mobile profile text", () => {
+    expect(css).toContain(".rail-contact > * { display: flex; align-items: flex-start; gap: 10px; color: var(--body); font-size: 11px;");
+    expect(css).toContain(".hero-bio { max-width: 730px; margin: 0 0 25px; color: var(--body-strong); font-size: 14px;");
+    expect(css).toContain(".project-description { margin: 0; color: var(--body); font-size: 12px;");
+    expect(css).toContain(".identity-rail .rail-contact > * { gap: 7px; font-size: 10px;");
+    expect(css).toContain(".identity-rail .rail-role { align-self: start; margin: 2px 0 0; font-size: 11px;");
+  });
+});
