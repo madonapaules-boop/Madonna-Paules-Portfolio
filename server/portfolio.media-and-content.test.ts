@@ -8,6 +8,7 @@ describe("portfolio bilingual content and media validation", () => {
     expect(portfolioContentInput.safeParse(defaultPortfolioContent).success).toBe(true);
     expect(defaultPortfolioContent.profile.nameAr).toBe("مادونا بولس بشاي");
     expect(defaultPortfolioContent.projects[0]?.descriptionAr).toBeTruthy();
+    expect(defaultPortfolioContent.projects[0]).toMatchObject({ projectUrl: "", imageUrl: "", imageKey: "" });
   });
 
   it("validates image and PDF binary signatures before upload", () => {
