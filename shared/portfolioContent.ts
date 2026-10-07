@@ -1,5 +1,6 @@
+import { defaultProjects, type ProjectEntry } from "./projects";
 export type SkillGroup = { category: string; categoryAr: string; items: string[] };
-export type ProjectEntry = { name: string; nameAr: string; year: string; stack: string[]; description: string; descriptionAr: string; projectUrl: string; imageUrl: string; imageKey: string };
+export type { ProjectEntry } from "./projects";
 export type CertificationEntry = { title: string; titleAr: string; issuer: string };
 export type LanguageEntry = { label: string; labelAr: string };
 
@@ -32,11 +33,7 @@ export const defaultPortfolioContent: PortfolioContent = {
     { category: "Tools", categoryAr: "الأدوات", items: ["Git & GitHub", "Visual Studio", "Jupyter Notebook", "Shell Scripting"] },
     { category: "Machine Learning", categoryAr: "تعلم الآلة", items: ["Naive Bayes", "Logistic Regression", "TF-IDF + SVM", "Decision Tree"] },
   ],
-  projects: [
-    { name: "Dona Store", nameAr: "متجر دونا", year: "2026", stack: ["React.js", "ASP.NET Core Web API", "Entity Framework Core", "SQL Server", "JWT"], description: "Full-featured e-commerce platform for electronics with a React front-end and complete ASP.NET Core REST API backend, JWT authentication, product catalog management, and end-to-end order flow with SQL Server persistence.", descriptionAr: "منصة تجارة إلكترونية متكاملة للإلكترونيات بواجهة React وواجهة خلفية كاملة باستخدام ASP.NET Core REST API، مع مصادقة JWT وإدارة كتالوج المنتجات وتدفق طلبات متكامل وحفظ البيانات في SQL Server.", projectUrl: "", imageUrl: "", imageKey: "" },
-    { name: "Feane Restaurant Website", nameAr: "موقع مطعم فيني", year: "2025", stack: ["HTML5", "CSS3", "JavaScript"], description: "Multi-page restaurant website with navigation menu, food offers section, online ordering flow, table booking form with validation, reviews section, and fully responsive layout.", descriptionAr: "موقع مطعم متعدد الصفحات يضم قائمة تنقل وقسم عروض الطعام وتدفق طلبات عبر الإنترنت ونموذج حجز طاولات مع التحقق من المدخلات وتصميماً متجاوباً بالكامل.", projectUrl: "", imageUrl: "", imageKey: "" },
-    { name: "Spam Detection System", nameAr: "نظام اكتشاف الرسائل المزعجة", year: "2026", stack: ["Python", "Scikit-learn", "Naive Bayes", "Logistic Regression", "TF-IDF + SVM", "Decision Tree"], description: "Spam classifier implementing five ML algorithms with both a browser-based GUI and a Jupyter Notebook version, comparing algorithm performance on real email datasets.", descriptionAr: "مصنف للرسائل المزعجة يطبّق خمس خوارزميات لتعلم الآلة، مع واجهة رسومية تعمل في المتصفح ونسخة Jupyter Notebook لمقارنة أداء الخوارزميات على مجموعات بيانات رسائل حقيقية.", projectUrl: "", imageUrl: "", imageKey: "" },
-  ],
+  projects: defaultProjects,
   education: { degree: "Bachelor of CS & IT", degreeAr: "بكالوريوس علوم الحاسب وتكنولوجيا المعلومات", university: "Egyptian E-Learning University (EELU)", universityAr: "الجامعة المصرية للتعلم الإلكتروني (EELU)", period: "2023–2027", coursework: "OOP (Java, C++, C#), Data Structures, Web Development, SQL Databases, Machine Learning fundamentals.", courseworkAr: "البرمجة كائنية التوجه (Java وC++ وC#)، هياكل البيانات، تطوير الويب، قواعد بيانات SQL، وأساسيات تعلم الآلة." },
   certifications: [
     { title: "Full-Stack Web Development", titleAr: "تطوير الويب Full-Stack", issuer: "Satr" },

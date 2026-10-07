@@ -5,10 +5,10 @@ import { hasOwnerSession } from "../ownerAuth";
 import { storagePut } from "../storage";
 import { publicProcedure, router } from "../_core/trpc";
 
-const urlOrEmpty = z.union([z.string().url(), z.string().regex(/^\/manus-storage\/[a-zA-Z0-9_./-]+$/), z.literal("")]);
+const urlOrEmpty = z.union([z.string().url(), z.string().regex(/^\/manus-storage\/[a-zA-Z0-9_./-]+$/), z.literal("#"), z.literal("")]);
 const localized = z.object({ en: z.string().trim().min(1).max(4000), ar: z.string().trim().min(1).max(4000) });
 const skillInput = z.object({ category: z.string().trim().min(1).max(80), categoryAr: z.string().trim().min(1).max(80), items: z.array(z.string().trim().min(1).max(80)).max(30) });
-const projectInput = z.object({ name: z.string().trim().min(1).max(180), nameAr: z.string().trim().min(1).max(180), year: z.string().trim().min(1).max(12), stack: z.array(z.string().trim().min(1).max(80)).max(30), description: z.string().trim().min(1).max(4000), descriptionAr: z.string().trim().min(1).max(4000), projectUrl: urlOrEmpty, imageUrl: urlOrEmpty, imageKey: z.string().max(500) });
+const projectInput = z.object({ name: z.string().trim().min(1).max(180), nameAr: z.string().trim().min(1).max(180), year: z.string().trim().min(1).max(12), stack: z.array(z.string().trim().min(1).max(80)).max(30), description: z.string().trim().min(1).max(4000), descriptionAr: z.string().trim().min(1).max(4000), projectUrl: urlOrEmpty, githubUrl: urlOrEmpty, galleryImages: z.array(z.string().trim().min(1).max(2000)).max(4), imageKey: z.string().max(500) });
 const certificationInput = z.object({ title: z.string().trim().min(1).max(180), titleAr: z.string().trim().min(1).max(180), issuer: z.string().trim().min(1).max(180) });
 
 export const portfolioContentInput = z.object({
