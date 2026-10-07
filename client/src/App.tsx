@@ -10,13 +10,15 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminProfile from "./pages/AdminProfile";
 import AdminProjects from "./pages/AdminProjects";
 import AdminCertificates from "./pages/AdminCertificates";
-import AdminMessages from "./pages/AdminMessages";
+import AdminMessages from "@/pages/AdminMessages";
+import ProjectDetails from "@/pages/ProjectDetails";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      <Route path={"/project/:slug"} component={ProjectDetails} />
       <Route path={"/admin/login"} component={AdminLogin} />
       <Route path={"/admin/profile"} component={AdminProfile} />
       <Route path={"/admin/projects"} component={AdminProjects} />

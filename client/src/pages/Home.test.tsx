@@ -70,4 +70,14 @@ describe("portfolio interactions", () => {
     expect(screen.getByText("Languages")).toBeTruthy();
     expect(screen.queryByText("Dona Store")).toBeNull();
   });
+
+  it("renders project preview controls and a full-project action in Work", () => {
+    renderPortfolio();
+    fireEvent.click(screen.getAllByRole("button", { name: "Work" })[0]);
+
+    expect(screen.getAllByText("Illustrative preview")).toHaveLength(3);
+    expect(screen.getAllByRole("button", { name: "Next project image" })).toHaveLength(3);
+    expect(screen.getAllByRole("button", { name: "View full project" })).toHaveLength(3);
+    expect(screen.getAllByRole("link", { name: "Placeholder link — add the real URL from the dashboard" })).toHaveLength(6);
+  });
 });
