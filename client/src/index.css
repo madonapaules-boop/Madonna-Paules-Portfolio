@@ -155,3 +155,10 @@ footer { min-height: 103px; margin: 0 2vw; display: flex; align-items: center; j
 .project-card .gallery-arrow:hover { border-color: var(--accent); color: var(--accent-strong); }
 .project-card .gallery-dots button { background: var(--border); }
 .project-card .gallery-dots button.active { background: var(--accent); }
+
+/* Certificate image manager */
+.certificate-image-manager { margin: 18px 0 16px; padding: 16px; border: 1px solid var(--border); border-radius: 12px; background: color-mix(in srgb, var(--accent-soft) 20%, var(--surface)); }
+.certificate-image-empty { margin: 14px 0 0; color: var(--body); font-size: 12px; }
+.certificate-image-manager .project-image-list { margin-top: 14px; }
+.certificate-image-manager .project-image-item img { aspect-ratio: 4 / 3; object-fit: cover; }
+@media (max-width: 760px) { .certificate-image-manager { padding: 12px; } }
