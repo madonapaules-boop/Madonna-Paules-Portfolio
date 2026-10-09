@@ -188,3 +188,12 @@ footer { min-height: 103px; margin: 0 2vw; display: flex; align-items: center; j
   .project-card { padding: 14px; gap: 10px; }
   .project-card .project-gallery { margin-bottom: 1px; }
 }
+
+/* Two-column project details layout */
+.detail-main-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(290px, 1fr); align-items: start; gap: 20px; }
+.detail-main-grid .detail-copy-panel { min-width: 0; margin-top: 0; }
+.detail-main-grid .detail-gallery-frame { width: 100%; }
+@media (max-width: 760px) {
+  .detail-main-grid { grid-template-columns: 1fr; gap: 16px; }
+  .detail-main-grid .detail-copy-panel { margin-top: 0; }
+}

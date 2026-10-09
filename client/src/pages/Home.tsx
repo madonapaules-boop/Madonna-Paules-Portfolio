@@ -37,6 +37,7 @@ export default function Home() {
   const [language, setLanguage] = useState<Language>("en");
   const [menuOpen, setMenuOpen] = useState(false);
   const [message, setMessage] = useState({ senderName: "", senderEmail: "", subject: "", body: "" });
+  useEffect(() => { if (window.location.hash === "#work") { setActiveSection("work"); window.setTimeout(() => document.getElementById("work")?.scrollIntoView({ block: "start" }), 0); } }, []);
   const { data, isLoading } = trpc.portfolio.publicData.useQuery();
   const sendMessage = trpc.portfolio.sendMessage.useMutation({ onSuccess: () => setMessage({ senderName: "", senderEmail: "", subject: "", body: "" }) });
   const content = data ?? defaultPortfolioContent;
@@ -60,7 +61,7 @@ function ProjectCard({ project, index, language, local }: { project: import("@sh
   const [, setLocation] = useLocation();
   const hasLink = (url: string) => Boolean(url);
   const linkProps = (url: string) => url === "#" ? { onClick: (event: React.MouseEvent<HTMLAnchorElement>) => event.preventDefault(), "aria-label": "Placeholder link — add the real URL from the dashboard" } : { target: "_blank", rel: "noreferrer" };
-  const openDetails = () => setLocation(`/project/${projectSlug(project.name)}`);
+  const openDetails = () => { window.history.replaceState(null, "", "#work"); setLocation(`/project/${projectSlug(project.name)}`); };
   return <article className="project-card" onClick={openDetails} onKeyDown={event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); openDetails(); } }} tabIndex={0} role="link"><div className="project-card-top"><span>0{index + 1}</span><Code2 size={20} /></div><ProjectGallery images={project.galleryImages} title={text(language, project.name, project.nameAr)} onOpen={openDetails} /><div className="project-card-copy"><p className="project-year">{project.year}</p><h3>{text(language, project.name, project.nameAr)}</h3><p className="project-description">{text(language, project.description, project.descriptionAr)}</p></div><button type="button" className="project-details-cta" onClick={openDetails}>View full project <ExternalLink size={14} /></button><div className="tag-list">{project.stack.map(tech => <span key={tech}>{tech}</span>)}</div><div className="project-actions" onClick={event => event.stopPropagation()}>{hasLink(project.projectUrl) && <a className={`project-link${project.projectUrl === "#" ? " placeholder-link" : ""}`} href={project.projectUrl} {...linkProps(project.projectUrl)}><ExternalLink size={15} />{local("Live Demo", "تجربة مباشرة")}</a>}{hasLink(project.githubUrl) && <a className={`project-link${project.githubUrl === "#" ? " placeholder-link" : ""}`} href={project.githubUrl} {...linkProps(project.githubUrl)}><Github size={15} />GitHub</a>}</div></article>;
 }
 
