@@ -197,3 +197,16 @@ footer { min-height: 103px; margin: 0 2vw; display: flex; align-items: center; j
   .detail-main-grid { grid-template-columns: 1fr; gap: 16px; }
   .detail-main-grid .detail-copy-panel { margin-top: 0; }
 }
+
+/* Equal-height project detail columns */
+.detail-main-grid { align-items: stretch; }
+.detail-gallery-section { display: flex; min-width: 0; flex-direction: column; }
+.detail-gallery-frame { flex: 1 1 auto; min-height: 0; aspect-ratio: auto; padding-bottom: 30px; }
+.detail-gallery-frame .detail-real-image, .detail-gallery-frame .fake-project-image { height: 100%; object-fit: cover; }
+.detail-gallery-frame .detail-gallery-dots { position: absolute; right: 0; bottom: 10px; left: 0; z-index: 2; margin-top: 0; }
+.detail-main-grid .detail-copy-panel { height: 100%; }
+.detail-copy-panel h1 { font-size: clamp(30px, 4vw, 54px); }
+@media (max-width: 760px) {
+  .detail-gallery-frame { aspect-ratio: 1.2; padding-bottom: 30px; }
+  .detail-main-grid .detail-copy-panel { height: auto; }
+}
