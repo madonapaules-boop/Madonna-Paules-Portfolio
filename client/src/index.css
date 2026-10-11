@@ -260,3 +260,36 @@ footer { min-height: 103px; margin: 0 2vw; display: flex; align-items: center; j
 @media (max-width: 980px) { .certificate-cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 760px) { .credentials-grid { grid-template-columns: 1fr; }.certificate-cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 475px) { .certificate-cards-grid { grid-template-columns: 1fr; } }
+
+/* Certificate editor inspired by the reference layout */
+.certificates-manager-section { display: grid; gap: 18px; }
+.certificates-section-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; }
+.certificates-section-heading h2 { margin: 0 0 8px; color: var(--heading); font-size: clamp(2.2rem, 4.5vw, 4rem); line-height: .92; letter-spacing: -.075em; }
+.certificates-section-heading p:not(.admin-kicker) { margin: 0; color: var(--body); font-size: 12px; line-height: 1.5; }
+.certificate-editor-card { display: grid; gap: 18px; padding: 22px; border: 1px solid var(--border); border-radius: 15px; background: color-mix(in srgb, var(--accent-soft) 12%, var(--surface)); box-shadow: 0 16px 34px color-mix(in srgb, var(--accent) 7%, transparent); }
+.certificate-editor-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+.certificate-editor-top .admin-kicker { margin-bottom: 6px; }
+.certificate-editor-top h3 { margin: 0; color: var(--heading); font-size: 21px; font-weight: 500; letter-spacing: -.045em; }
+.certificate-cancel { display: inline-flex; align-items: center; gap: 6px; border: 0; background: transparent; color: var(--body); font-size: 11px; cursor: pointer; }
+.certificate-cancel:hover { color: var(--accent); }
+.certificate-field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 18px; }
+.certificate-field-grid label { display: grid; gap: 6px; min-width: 0; color: var(--heading); font-size: 11px; font-weight: 800; }
+.certificate-field-grid label > span { color: var(--body); font-family: var(--mono); font-size: 9px; font-weight: 500; letter-spacing: .055em; text-transform: uppercase; }
+.certificate-field-grid input { width: 100%; min-height: 42px; padding: 10px 11px; border: 1px solid var(--border); border-radius: 8px; outline: 0; background: var(--surface-raised); color: var(--heading); font: inherit; font-size: 12px; }
+.certificate-field-grid input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 13%, transparent); }
+.certificate-upload-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.certificate-upload-preview { width: 72px; height: 52px; display: grid; place-items: center; overflow: hidden; border: 1px solid var(--border); border-radius: 8px; background: color-mix(in srgb, var(--accent-soft) 34%, var(--surface)); color: var(--body); font-size: 10px; }
+.certificate-upload-preview img { width: 100%; height: 100%; object-fit: cover; }
+.certificate-upload-button { width: max-content; min-width: 132px; padding: 0 12px; }
+.certificate-upload-row small { color: var(--body); font-size: 10px; }
+.certificate-image-manager { padding-top: 14px; border-top: 1px solid var(--border); }
+.certificate-image-manager .project-image-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; }
+.certificate-image-manager .project-image-item { min-width: 0; }
+.certificate-image-manager .project-image-item img { aspect-ratio: 1.55; }
+.certificate-editor-actions { display: flex; align-items: center; gap: 10px; padding-top: 4px; }
+.certificate-save-button, .certificate-delete-button { display: inline-flex; align-items: center; gap: 7px; min-height: 38px; border-radius: 8px; padding: 0 12px; font-size: 11px; font-weight: 800; cursor: pointer; }
+.certificate-save-button { border: 0; background: var(--accent); color: white; }
+.certificate-save-button:hover { background: var(--accent-strong); }
+.certificate-delete-button { border: 1px solid var(--border); background: transparent; color: var(--body); }
+.certificate-delete-button:hover { border-color: var(--accent); color: var(--accent); }
+@media (max-width: 760px) { .certificates-section-heading { align-items: flex-start; flex-direction: column; }.certificate-field-grid { grid-template-columns: 1fr; }.certificate-image-manager .project-image-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }.certificate-editor-card { padding: 16px; }.certificate-editor-actions { flex-wrap: wrap; } }

@@ -1,7 +1,7 @@
 import { defaultProjects, type ProjectEntry } from "./projects";
 export type SkillGroup = { category: string; categoryAr: string; items: string[] };
 export type { ProjectEntry } from "./projects";
-export type CertificationEntry = { title: string; titleAr: string; issuer: string; imageUrls: string[] };
+export type CertificationEntry = { title: string; titleAr: string; issuer: string; status: string; credentialUrl: string; order: number; imageUrls: string[] };
 export type LanguageEntry = { label: string; labelAr: string };
 
 export type PortfolioContent = {
@@ -36,9 +36,9 @@ export const defaultPortfolioContent: PortfolioContent = {
   projects: defaultProjects,
   education: { degree: "Bachelor of CS & IT", degreeAr: "بكالوريوس علوم الحاسب وتكنولوجيا المعلومات", university: "Egyptian E-Learning University (EELU)", universityAr: "الجامعة المصرية للتعلم الإلكتروني (EELU)", period: "2023–2027", coursework: "OOP (Java, C++, C#), Data Structures, Web Development, SQL Databases, Machine Learning fundamentals.", courseworkAr: "البرمجة كائنية التوجه (Java وC++ وC#)، هياكل البيانات، تطوير الويب، قواعد بيانات SQL، وأساسيات تعلم الآلة." },
   certifications: [
-    { title: "Full-Stack Web Development", titleAr: "تطوير الويب Full-Stack", issuer: "Satr", imageUrls: [] },
-    { title: "CCNA 1 & 2", titleAr: "CCNA 1 و2", issuer: "Cisco", imageUrls: [] },
-    { title: "Device Configuration & Management", titleAr: "إعداد وإدارة الأجهزة", issuer: "IT Specialist", imageUrls: [] },
+    { title: "Full-Stack Web Development", titleAr: "تطوير الويب Full-Stack", issuer: "Satr", status: "Completed", credentialUrl: "", order: 1, imageUrls: [] },
+    { title: "CCNA 1 & 2", titleAr: "CCNA 1 و2", issuer: "Cisco", status: "Completed", credentialUrl: "", order: 2, imageUrls: [] },
+    { title: "Device Configuration & Management", titleAr: "إعداد وإدارة الأجهزة", issuer: "IT Specialist", status: "Completed", credentialUrl: "", order: 3, imageUrls: [] },
   ],
   languages: [{ label: "Arabic (Native)", labelAr: "العربية (اللغة الأم)" }, { label: "English (Intermediate B1)", labelAr: "الإنجليزية (متوسط B1)" }],
 };
