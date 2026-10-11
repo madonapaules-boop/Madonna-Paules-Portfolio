@@ -3,7 +3,7 @@ import { useLocation, useRoute } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { defaultPortfolioContent, type ProjectEntry } from "@shared/portfolioContent";
 import { PROJECT_IMAGE_PLACEHOLDER } from "@shared/projects";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const slugify = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const placeholderLines = ["", "", "", "", ""];
@@ -21,6 +21,8 @@ export default function ProjectDetails() {
   const content = data ?? defaultPortfolioContent;
   const project = content.projects.find(item => slugify(item.name) === params?.slug) ?? content.projects[0];
   const [active, setActive] = useState(0);
+  const galleryRef = useRef<HTMLDivElement>(null);
+  const [galleryHeight, setGalleryHeight] = useState<number>();
   if (!project) return null;
   const imageCount = project.galleryImages.length;
   const projectNumber = String(content.projects.indexOf(project) + 1).padStart(2, "0");
@@ -33,6 +35,15 @@ export default function ProjectDetails() {
     const timer = window.setInterval(() => setActive(current => (current + 1) % imageCount), 3000);
     return () => window.clearInterval(timer);
   }, [imageCount, project.name, showControls]);
+  useEffect(() => {
+    const element = galleryRef.current;
+    if (!element) return;
+    const updateHeight = () => setGalleryHeight(element.offsetHeight);
+    updateHeight();
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [active, project.name]);
 
-  return <main className="project-detail-page"><div className="project-detail-shell"><header className="project-detail-nav"><button type="button" onClick={() => setLocation("/#work")}><ArrowLeft size={17} />Back to portfolio</button><span>PROJECT / {projectNumber}</span></header><div className="detail-main-grid"><section className="detail-gallery-section"><div className="detail-gallery-frame"><FakeProjectImage project={project} index={active} />{showControls && <><button className="detail-gallery-arrow left" type="button" aria-label="Previous project image" onClick={() => goTo(active - 1)}><ChevronLeft size={22} /></button><button className="detail-gallery-arrow right" type="button" aria-label="Next project image" onClick={() => goTo(active + 1)}><ChevronRight size={22} /></button><div className="detail-gallery-counter">{active + 1} / {imageCount}</div><div className="detail-gallery-dots" aria-label="Project image navigation">{project.galleryImages.map((_, index) => <button key={index} type="button" className={active === index ? "active" : ""} aria-label={`Show project image ${index + 1}`} onClick={() => goTo(index)} />)}</div></>}</div></section><section className="detail-copy-panel"><p className="detail-kicker">PROJECT / {projectNumber}</p><h1>{project.name}</h1><p className="detail-arabic-name">{project.nameAr}</p><div className="detail-block"><p className="detail-label">ABOUT PROJECT</p><p className="detail-description">{description}</p></div><div className="detail-block"><p className="detail-label">TECHNOLOGIES USED</p><div className="detail-tags">{project.stack.map(tech => <span key={tech}>{tech}</span>)}</div></div><div className="detail-links">{project.githubUrl && <a href={project.githubUrl === "#" ? undefined : project.githubUrl} target={project.githubUrl === "#" ? undefined : "_blank"} rel="noreferrer" onClick={event => project.githubUrl === "#" && event.preventDefault()}><Github size={17} />View code</a>}</div></section></div></div></main>;
+  return <main className="project-detail-page"><div className="project-detail-shell"><header className="project-detail-nav"><button type="button" onClick={() => setLocation("/#work")}><ArrowLeft size={17} />Back to portfolio</button><span>PROJECT / {projectNumber}</span></header><div className="detail-main-grid"><section className="detail-gallery-section"><div className="detail-gallery-frame" ref={galleryRef}><FakeProjectImage project={project} index={active} />{showControls && <><button className="detail-gallery-arrow left" type="button" aria-label="Previous project image" onClick={() => goTo(active - 1)}><ChevronLeft size={22} /></button><button className="detail-gallery-arrow right" type="button" aria-label="Next project image" onClick={() => goTo(active + 1)}><ChevronRight size={22} /></button><div className="detail-gallery-counter">{active + 1} / {imageCount}</div><div className="detail-gallery-dots" aria-label="Project image navigation">{project.galleryImages.map((_, index) => <button key={index} type="button" className={active === index ? "active" : ""} aria-label={`Show project image ${index + 1}`} onClick={() => goTo(index)} />)}</div></>}</div></section><section className="detail-copy-panel" style={galleryHeight ? { minHeight: galleryHeight } : undefined}><p className="detail-kicker">PROJECT / {projectNumber}</p><h1>{project.name}</h1><p className="detail-arabic-name">{project.nameAr}</p><div className="detail-block"><p className="detail-label">ABOUT PROJECT</p><p className="detail-description">{description}</p></div><div className="detail-block"><p className="detail-label">TECHNOLOGIES USED</p><div className="detail-tags">{project.stack.map(tech => <span key={tech}>{tech}</span>)}</div></div><div className="detail-links">{project.githubUrl && <a href={project.githubUrl === "#" ? undefined : project.githubUrl} target={project.githubUrl === "#" ? undefined : "_blank"} rel="noreferrer" onClick={event => project.githubUrl === "#" && event.preventDefault()}><Github size={17} />View code</a>}</div></section></div></div></main>;
 }
